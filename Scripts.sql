@@ -154,3 +154,23 @@ ON E.SubjCode = SO.SubjCode AND E.Year = SO.Year AND E.Semester = SO.Semester
 WHERE Fee =(
 SELECT MAX(FEE)
 FROM SubjectOffering);
+
+
+
+--- Task 5 ---
+
+CREATE VIEW Task5 AS
+SELECT ST.GivenName AS 'StudentName', ST.Surname AS 'StudentSurname', SB.SubjCode, SB.Description, SO.Year, SO.Semester, SO.Fee, T.GivenName, T.Surname
+FROM Student ST
+
+INNER JOIN Enrolment E
+ON ST.StudentID = E.StudentID
+
+INNER JOIN SubjectOffering SO
+ON E.SubjCode = SO.SubjCode AND E.Year = SO.Year AND E.Semester = SO.Semester
+
+INNER JOIN Subject SB
+ON SO.SubjCode = SB.SubjCode
+
+INNER JOIN Teacher T
+ON SO.StaffID = T.StaffID;
