@@ -4,7 +4,7 @@ St_ID: 103220762
 */
 
 /*
----- TASK 1 ------
+---- TASK 1 ----
 
 Subject(SubjCode, Decsciption)
 PRIMARY KEY (SubjCode)
