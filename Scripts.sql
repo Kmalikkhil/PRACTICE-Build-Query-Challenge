@@ -71,6 +71,12 @@ PRIMARY KEY (StudentID,SubjCode,Year,Semester),
 FOREIGN KEY (StudentID) REFERENCES Student,
 FOREIGN KEY (SubjCode, Year, Semester) REFERENCES SubjectOffering);
 
+-- To verify if the tables have been created successfully
+SELECT * FROM Subject;
+SELECT * FROM Student;
+SELECT * FROM Teacher;
+SELECT * FROM SubjectOffering;
+SELECT * FROM Enrolment;
 
 --- Task 3 ---
 
@@ -109,3 +115,42 @@ INSERT INTO Enrolment (StudentID, SubjCode, Year, Semester, Grade) VALUES
     ('s23344556','ICTDBS502',2018,2,'P'),
     ('s34455667','ICTDBS502',2018,2,'N'),
     ('103220762','ICTDBS403',2019,1,'HD');
+
+
+SELECT * From Enrolment;
+
+
+--- Task 4 ---
+
+--- Query 1: 
+
+SELECT ST.GivenName, ST.Surname, SB.SubjCode, SB.Description, SO.Year, SO.Semester, SO.Fee, T.GivenName, T.Surname
+FROM Student ST
+
+INNER JOIN Enrolment E
+ON ST.StudentID = E.StudentID
+
+INNER JOIN SubjectOffering SO
+ON E.SubjCode = SO.SubjCode AND E.Year = SO.Year AND E.Semester = SO.Semester
+
+INNER JOIN Subject SB
+ON SO.SubjCode = SB.SubjCode
+
+INNER JOIN Teacher T
+ON SO.StaffID = T.StaffID;
+
+--- Query 2:
+
+SELECT Year, Semester, COUNT(*) AS 'Num Enrollments'
+FROM Enrolment
+GROUP BY YEAR, Semester;
+
+--- Query 3:
+
+SELECT *
+FROM Enrolment E
+INNER JOIN SubjectOffering SO
+ON E.SubjCode = SO.SubjCode AND E.Year = SO.Year AND E.Semester = SO.Semester
+WHERE Fee =(
+SELECT MAX(FEE)
+FROM SubjectOffering);
